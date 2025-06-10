@@ -2,11 +2,17 @@
 import { cn } from "@/lib/utils";
 import { BackgroundGradientAnimation } from "./GradientBg";
 import {GlobeDemo} from "./GridGlobe"
-import Lottie from "react-lottie";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import animationData from '@/data/confetti.json'
 import MagicButton from "./MagicButton";
 import { IoCopyOutline } from "react-icons/io5";
+import dynamic from 'next/dynamic';
+
+// Dynamically import Lottie with SSR disabled
+const Lottie = dynamic(() => import('lottie-react'), {
+    ssr: false
+});
+
 export const BentoGrid = ({
     className,
     children,
@@ -48,10 +54,19 @@ export const BentoGridItem = ({
     spareImg?: string;
 }) => {
     const [copied,setCopied]=useState(false);
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
     const handleCopy=()=>{
-        navigator.clipboard.writeText('sahapiyush5@gmail.com')
-        setCopied(true)
+        if (typeof window !== 'undefined' && navigator.clipboard) {
+            navigator.clipboard.writeText('sahapiyush5@gmail.com')
+            setCopied(true)
+        }
     }
+
     return (
         <div
             className={cn(
@@ -59,8 +74,6 @@ export const BentoGridItem = ({
                 className
             )}
             style={{
-                //   add these two
-                //   you can generate the color from here https://cssgradient.io/
                 background: "rgb(4,7,29)",
                 backgroundColor:
                     "linear-gradient(90deg, rgba(4,7,29,1) 0%, rgba(12,14,35,1) 100%)",
@@ -88,6 +101,7 @@ export const BentoGridItem = ({
                         {/* <div className="absolute z-50 flex items-center justify-center text-white font-bold" /> */}
                     </BackgroundGradientAnimation>
                 )}
+
                 <div className={cn(titleClassName, 'group-hover/bento:translate-x-2 transition duration-200 relative md:h-full min-h-40 flex flex-col px-5 p--5 lg:p-10')}>
                     <div className="font-sans font-extralight text-[#c1c2d3] text-sm md:text-xs lg:text-base z-10">
                         {description}
@@ -124,22 +138,21 @@ export const BentoGridItem = ({
                 {id===6&&(
                     <div className="mt-5 relative">
                         <div className={`absolute -bottom-5 right-0`}>
-                            <Lottie options={{
-                                loop: copied,
-                                autoplay: copied,
-                                animationData,
-                                rendererSettings:
-                                {
-                                    preserveAspectRatio:'xMidYMid slice',
-                                }
-                            }}/>
+                            {isMounted && (
+                                <Lottie 
+                                    animationData={animationData}
+                                    loop={copied}
+                                    autoplay={copied}
+                                    style={{ width: 200, height: 200 }}
+                                />
+                            )}
                         </div>
                         <MagicButton
-                        title={copied?'Email copied':'Copy my email'}
-                        icon={<IoCopyOutline/>}
-                        position="left"
-                        otherClasses="!bg-[#161a31]"
-                        handleClick={handleCopy}
+                            title={copied?'Email copied':'Copy my email'}
+                            icon={<IoCopyOutline/>}
+                            position="left"
+                            otherClasses="!bg-[#161a31]"
+                            handleClick={handleCopy}
                         />
                     </div>
                 )}
