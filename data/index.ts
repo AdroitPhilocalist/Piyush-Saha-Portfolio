@@ -138,37 +138,37 @@ export const navItems = [
 ];
   
   export const companies = [
-    {
-      id: 1,
-      name: "cloudinary",
-      img: "/cloud.svg",
-      nameImg: "/cloudName.svg",
-    },
-    {
-      id: 2,
-      name: "appwrite",
-      img: "/app.svg",
-      nameImg: "/appName.svg",
-    },
-    {
-      id: 3,
-      name: "HOSTINGER",
-      img: "/host.svg",
-      nameImg: "/hostName.svg",
-    },
-    {
-      id: 4,
-      name: "stream",
-      img: "/s.svg",
-      nameImg: "/streamName.svg",
-    },
-    {
-      id: 5,
-      name: "docker.",
-      img: "/dock.svg",
-      nameImg: "/dockerName.svg",
-    },
-  ];
+  {
+    id: 1,
+    name: "IIT Patna",
+    img: "/iit-patna.svg",
+    nameImg: "/iit-patna-name.svg",
+  },
+  {
+    id: 2,
+    name: "ISI Kolkata",
+    img: "/isi.svg",
+    nameImg: "/isi-name.svg",
+  },
+  {
+    id: 3,
+    name: "Heritage Institute",
+    img: "/heritage.svg",
+    nameImg: "/heritage-name.svg",
+  },
+  {
+    id: 4,
+    name: "IIT Madras",
+    img: "/iit-madras.svg",
+    nameImg: "/iit-madras-name.svg",
+  },
+  {
+    id: 5,
+    name: "MongoDB",
+    img: "/mongodb.svg",
+    nameImg: "/mongodb-name.svg",
+  },
+];
   
   export const workExperience = [
     {
